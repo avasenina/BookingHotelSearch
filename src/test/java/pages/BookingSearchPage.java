@@ -2,37 +2,31 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Collections;
-import java.util.List;
-
+import java.util.ArrayList;
 
 public class BookingSearchPage extends BasePage{
-    public BookingSearchPage(WebDriver driver) {super(driver); }
-    By hotelsNames = By.xpath("//div[@class='sr_item_photo']/./parent::div");
-    By rate = By.xpath("//div[@class='bui-review-score__badge']");
+    WebDriverWait wait;
 
-    public List<String> HotelsNames() {
-        return Collections.singletonList(driver.findElement(hotelsNames).getText());
+    By hotelsNames = By.xpath("//*[contains(@class, 'sr-hotel__name')]");
+
+    public BookingSearchPage(WebDriver driver) {
+        super(driver);
+        wait = new WebDriverWait(driver, 10);
     }
 
-    public String Rate() {
-        return driver.findElement(rate).getText();
+
+    public ArrayList<String> getAllHotelNames() {
+        ArrayList<String> hotelNames = new ArrayList<>();
+        for(WebElement name: driver.findElements(hotelsNames)) {
+            hotelNames.add(name.getText());
+        }
+        return hotelNames;
     }
 
-    public By getHotelsNames() {
-        return hotelsNames;
-    }
-
-    public void setHotelsNames(By hotelsNames) {
-        this.hotelsNames = hotelsNames;
-    }
-
-    public By getRate() {
-        return rate;
-    }
-
-    public void setRate(By rate) {
-        this.rate = rate;
+    public String getHotelRate(String waitingHotelName) {
+        return driver.findElement(By.xpath(String.format("//*[contains(@class, 'sr-hotel__name') and contains(text(),'%s')]/../../../../..//div[@class='bui-review-score__badge']", waitingHotelName))).getText();
     }
 }

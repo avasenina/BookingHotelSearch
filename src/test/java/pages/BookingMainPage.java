@@ -11,6 +11,7 @@ public class BookingMainPage extends BasePage {
     @FindBy(xpath = "//button[@type='submit']")
     private WebElement searchButton;
 
+
     public BookingMainPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);}

@@ -10,5 +10,6 @@ import io.cucumber.testng.CucumberOptions;
                 "json:target/cucumber-html-reports/cucumber.json"}
 )
 
+
 public class BookingSearchTest extends AbstractTestNGCucumberTests {
 }

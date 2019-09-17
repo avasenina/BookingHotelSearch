@@ -5,10 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.BookingMainPage;
 import pages.BookingSearchPage;
-
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class BookingSearchSteps {
     private static final String Booking_URL = "https://www.booking.com/searchresults.en-gb.html";
@@ -16,10 +16,7 @@ public class BookingSearchSteps {
     private WebDriver driver;
     private BookingMainPage bookingMainPage;
     private SearchItem searchItem;
-    private List getResultHotels;
-
-
-
+    private Integer numberOfHotelInList = 0;
 
     @cucumber.api.java.en.Given("I want Search is {string}")
     public void iWantSearchForSearchIs(String keyword) {
@@ -37,14 +34,27 @@ public class BookingSearchSteps {
     }
 
     @cucumber.api.java.en.Then("I get bookingPage {string} is on the first page with rating {string}")
-    public void iGetBookingPageIsOnTheFirstPageWithRating(String arg0, String arg1) {
+    public void hotelSearchResultsComparing(String waitingHotelName, String waitingHotelRate) {
+        boolean requestedHotelExistsInSearchResult = false;
+        numberOfHotelInList = 0;
         BookingSearchPage set = new BookingSearchPage(driver);
-        List<String> hotels = set.HotelsNames();
-        assertThat(hotels, arg0);
-        String hotelRate = set.Rate();
-        assertEquals(hotelRate, arg1);
+        List<String> hotels = set.getAllHotelNames();
+        for (String hotelName : hotels) {
+            System.out.println(hotelName);
+            if (hotelName.equals(waitingHotelName)) {
+                requestedHotelExistsInSearchResult = true;
+                break;
+            }
+            numberOfHotelInList++;
+        }
+        assertTrue(requestedHotelExistsInSearchResult);
+
+        if (requestedHotelExistsInSearchResult) {
+                BookingSearchPage page = new BookingSearchPage(driver);
+                String hotelRate = page.getHotelRate(waitingHotelName);
+                assertEquals(hotelRate, waitingHotelRate);
+            }
+        driver.quit();
     }
 
-    private void assertThat(List<String> hotels, String arg0) {
-    }
 }

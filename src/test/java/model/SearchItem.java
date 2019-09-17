@@ -10,10 +10,7 @@ public class SearchItem {
     }
 
     private String searchString;
-
     public SearchItem(String searchString) {
         this.searchString = searchString;
     }
-
-
 }
