@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.BookingMainPage;
 import pages.BookingSearchPage;
+import utils.CapabilitiesGenerator;
+
 import java.util.List;
 
 import static org.testng.Assert.assertEquals;
