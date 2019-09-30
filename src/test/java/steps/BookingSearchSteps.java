@@ -1,6 +1,7 @@
 package steps;
 
 import model.SearchItem;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.BookingMainPage;
@@ -26,7 +27,7 @@ public class BookingSearchSteps {
 
     @cucumber.api.java.en.When("I click SearchButton")
     public void iOpenSearchScrnDoesSearch() throws InterruptedException {
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         driver.get(Booking_URL);
         bookingMainPage = new  BookingMainPage(driver);
         driver.manage().window().maximize();
