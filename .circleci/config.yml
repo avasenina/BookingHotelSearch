@@ -40,7 +40,7 @@ jobs:
           path: target/site/allure-maven-plugin/
 workflows:
   version: 2
-  commit:
+  commit_anna-version:
     jobs:
       - ui-tests
   periodical:
