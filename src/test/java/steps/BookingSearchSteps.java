@@ -23,6 +23,7 @@ public class BookingSearchSteps {
 
     @cucumber.api.java.en.Given("I want Search is {string}")
     public void iWantSearchForSearchIs(String keyword) {
+        //System.setProperty("webdriver.chrome.driver", "src/test/resources/webdriver/chromedriver.exe");
         searchItem = new SearchItem(keyword);
     }
 
